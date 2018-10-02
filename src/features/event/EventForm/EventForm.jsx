@@ -198,7 +198,7 @@ class EventForm extends Component {
                 type='button'
                 color={event.cancelled ? 'green' : 'red'}
                 floated='right'
-                content={event.cancelled ? 'Reativate Event' : 'Cancel Event'}
+                content={event.cancelled ? 'Reactivate Event' : 'Cancel Event'}
               />
             </Form>
           </Segment>
