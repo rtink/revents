@@ -12,6 +12,7 @@ const DateInput = ({input: {value, onChange, onBlur, ...restInput}, width, place
     <Form.Field error={touched && !!error} width={width}>
       <DatePicker 
         {...rest}
+        popperPlacement='top-start'
         placeholderText={placeholder}
         selected={value ? moment(value) : null}
         onChange={onChange}
