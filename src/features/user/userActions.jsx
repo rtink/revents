@@ -128,12 +128,12 @@ export const goingToEvent = event => async (dispatch, getState) => {
   dispatch(asyncActionStart());
   const firestore = firebase.firestore();
   const user = firebase.auth().currentUser;
-  const photoURL = getState().firebase.profile.photoURL;
+  const profile = getState().firebase.profile;
   const attendee = {
     going: true,
     joinDate: Date.now(),
-    photoURL: photoURL || '/assets/user.png',
-    displayName: user.displayName,
+    photoURL: profile.photoURL || '/assets/user.png',
+    displayName: profile.displayName,
     host: false
   };
   try {
@@ -213,7 +213,9 @@ export const getUserEvents = (userUid, activeTab) => async (dispatch, getState) 
 
     for (let i = 0; i < querySnap.docs.length; i++) {
       let evt = await firestore.collection('events').doc(querySnap.docs[i].data().eventId).get();
-      events.push({ ...evt.data(), id: evt.id })
+      if (evt.exists) {
+        events.push({ ...evt.data(), id: evt.id })
+      }
     }
 
     dispatch({type: FETCH_EVENTS, payload: {events}})
